@@ -1,0 +1,21 @@
+# 비밀값 - 절대 커밋 금지
+.env
+*.env.local
+serviceAccountKey*.json
+*-firebase-adminsdk-*.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Frontend build output
+frontend/dist/
+node_modules/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.claude/

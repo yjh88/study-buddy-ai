@@ -1,0 +1,9 @@
+{
+  "name": "study-buddy-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Study Buddy AI - vanilla HTML/CSS/JS frontend",
+  "scripts": {
+    "build": "node build.js"
+  }
+}
