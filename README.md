@@ -244,6 +244,7 @@ python -m http.server 5500   # http://localhost:5500
 | `FIREBASE_SERVICE_ACCOUNT_JSON` | ✅ | 서비스 계정 키 **JSON 문자열 전체** (Render) 또는 **키 파일 경로** (로컬) |
 | `ALLOWED_ORIGINS` | ✅ | CORS 허용 도메인, 쉼표 구분 (예: `https://<your-app>.vercel.app,http://localhost:5500`) |
 | `DB_BACKEND` | | `auto`(기본) / `firestore` / `memory` — 배포에서는 `firestore` 로 두면 키 누락 시 조용히 메모리로 빠지지 않고 바로 실패 |
+| `SEED_SAMPLE_IF_EMPTY` | | 기본 `true` — Firestore `data` 컬렉션이 비어 있으면 서버 시작 시 샘플 180건을 한 번 업로드 |
 | `OPENAI_MODEL` | | 기본 `gpt-4o-mini` |
 | `OPENAI_MAX_TOKENS` | | 답변 최대 토큰, 기본 600 |
 | `CHAT_RATE_LIMIT_PER_MIN` | | IP당 분당 채팅 요청 수, 기본 10 |

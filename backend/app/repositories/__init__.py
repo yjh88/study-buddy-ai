@@ -52,6 +52,10 @@ def init_store() -> None:
         store.conversations = FirestoreRepository(client, CONVERSATION_COLLECTION)
         store.backend = "firestore"
         logger.info("Firestore 저장소를 사용합니다.")
+        # 최초 배포 시 data 컬렉션이 비어 있으면 샘플 데이터를 한 번만 업로드
+        if settings.SEED_SAMPLE_IF_EMPTY and store.data.count() == 0:
+            n = store.data.bulk_create(load_sample_rows())
+            logger.info("Firestore 'data' 컬렉션이 비어 있어 샘플 %d건을 업로드했습니다.", n)
     else:
         store.data = MemoryRepository()
         store.conversations = MemoryRepository()

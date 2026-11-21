@@ -24,6 +24,8 @@ class Settings:
     FIREBASE_SERVICE_ACCOUNT_JSON: str = os.getenv("FIREBASE_SERVICE_ACCOUNT_JSON", "")
     # firestore | memory | auto(기본: 키가 있으면 firestore, 없으면 memory)
     DB_BACKEND: str = os.getenv("DB_BACKEND", "auto").lower()
+    # Firestore 'data' 컬렉션이 비어 있으면 시작 시 샘플 CSV를 업로드 (true/false)
+    SEED_SAMPLE_IF_EMPTY: bool = os.getenv("SEED_SAMPLE_IF_EMPTY", "true").lower() == "true"
 
     # CORS 허용 도메인 (쉼표 구분). 예: https://my-app.vercel.app,http://localhost:5500
     ALLOWED_ORIGINS: list[str] = _split_csv(
