@@ -10,9 +10,15 @@
 
 | 구분 | URL |
 |---|---|
-| 프론트엔드 (Vercel) | `https://<your-app>.vercel.app` |
-| 백엔드 API (Render) | `https://<your-api>.onrender.com` |
-| Swagger UI | `https://<your-api>.onrender.com/docs` |
+| 프론트엔드 (Vercel) | https://study-buddy-ai-teal.vercel.app |
+| 백엔드 API (Render) | https://study-buddy-api-86ag.onrender.com |
+| Swagger UI | https://study-buddy-api-86ag.onrender.com/docs |
+| 헬스 체크 | https://study-buddy-api-86ag.onrender.com/health |
+
+> 현재 배포 상태: Render 환경 변수에 `OPENAI_API_KEY`, `FIREBASE_SERVICE_ACCOUNT_JSON` 이 아직 없어서
+> 백엔드는 **메모리 저장소 + 샘플 180건**으로 동작합니다 (`/health` → `"db": "memory", "ai_ready": false`).
+> 데이터 조회/추가/수정/삭제, 요약, 대화 기록은 동작하지만, AI 채팅은 키가 등록되기 전까지 "OPENAI_API_KEY 가 설정되지 않았습니다" 안내를 반환합니다.
+> 메모리 저장소이므로 서버가 잠들거나 재배포되면 추가한 데이터는 초기화됩니다. 키 등록 후 자동으로 Firestore 모드로 전환됩니다.
 
 > ⚠️ 백엔드는 Render 무료 티어라 15분간 요청이 없으면 잠듭니다. 첫 접속 시 30초~1분 걸릴 수 있으며,
 > 프론트엔드는 `/health` 를 재시도하며 "서버를 깨우는 중" 배너를 보여 줍니다.
