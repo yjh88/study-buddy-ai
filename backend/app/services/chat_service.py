@@ -12,7 +12,7 @@ import logging
 from datetime import date
 from typing import Any, Optional
 
-from openai import OpenAI, OpenAIError
+from openai import OpenAI, OpenAIError, RateLimitError
 
 from ..config import settings
 from ..repositories.base import Repository
@@ -179,6 +179,13 @@ def chat(message: str, conversation_id: Optional[str],
                     "tool_call_id": tc.id,
                     "content": json.dumps(result, ensure_ascii=False, default=str),
                 })
+    except RateLimitError as e:
+        logger.exception("OpenAI 요청 거부 (429)")
+        if getattr(e, "code", None) in ("insufficient_quota", "credit_balance_exhausted") or "insufficient_quota" in str(e):
+            raise ChatServiceError(
+                "OpenAI API 크레딧이 없습니다. platform.openai.com 의 Billing 에서 크레딧을 충전한 뒤 다시 시도해 주세요.", 503
+            ) from e
+        raise ChatServiceError("AI 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.", 429) from e
     except OpenAIError as e:
         logger.exception("OpenAI 호출 실패")
         raise ChatServiceError(f"AI 응답 생성에 실패했습니다: {e.__class__.__name__}", 502) from e
